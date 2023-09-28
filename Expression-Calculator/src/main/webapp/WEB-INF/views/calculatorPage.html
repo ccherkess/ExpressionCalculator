@@ -1,0 +1,169 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		
+		<title>Expression calculator</title>
+		
+		<link rel="stylesheet" type="text/css" media="all"  
+      href="/src/main/resources/templates/static/styles/calculatorPage.css"
+       th:href="@{/styles/calculatorPage.css}" />
+		
+	</head>
+    <body>
+		
+		<div class = "content">
+			
+			<h1>Calculator expression</h1>
+
+			<div class = "listOperand">	
+				<h2>List of valid operators:</h2>
+				<ul style = "margin-left: 25px;">
+					<li>a + b</li>
+					<li>a - b</li>
+					<li>a * b</li>
+					<li>a / b</li>
+					<li>a ^ b</li>
+					<li>cos(a)</li>
+					<li>sin(a)</li>
+				</ul>
+
+				<h2>Notes: in real numbers, the separator is "."</h2>
+			</div>
+		 
+		 <form method="post" action="/calculate">
+			 
+			 <div th:if = "${expression == null}">
+				<input  class = "input" name = "expression" 
+			 	type ="text" id = "inputExpression" 
+			 	placeholder="Enter your expression..." onkeyup="success()">
+			 	<input class = "inputButton" type = "submit" value = "calculate" id="button" disabled>
+			 </div>
+			 
+			 <div th:if = "${expression}">
+				<input  class = "input" name = "expression" 
+			 	type ="text" id = "inputExpression" 
+			 	onkeyup="success()" th:value = "${expression}">
+			 	<input class = "inputButton" type = "submit" value = "calculate" id="button" disabled>
+			 </div>
+			 
+
+		 </form>
+		 
+		 	<div>
+				 <h1 th:text = "${error}" th:if = "${error != null}" class="error"></h1>
+		 	</div>
+		 
+			<h1 th:text="${result}" th:if = "${result != null}" class = "answer"/h1> 
+			
+		</context>
+
+		
+      
+    </body>
+
+	<script>
+
+		function success() {
+			
+			if(document.getElementById("inputExpression").value.length === 0) { 
+					document.getElementById('button').disabled = true; 
+				} else { 
+					document.getElementById('button').disabled = false;
+				}
+		}
+		
+	</script>
+	
+	<style>
+		* {
+			margin: 0px;
+			padding: 0px;
+			font-family: 'Arial', 'Verdana', sans-serif;
+		}
+		
+		body {
+			background: white;
+		}
+		
+		h1 {
+			margin-left: auto;
+			margin-right: auto;
+			text-align: center;
+		}
+
+		li {
+			margin: 5px;
+			font-size: 18px;
+		}
+
+		.listOperand {
+			margin: 25px auto;
+		}
+			
+		.content {
+			margin: 100px auto;
+			padding: 50px;
+			border: 5px solid black;
+			border-radius: 10px;
+			width: 600px;
+		}
+		
+		.error {
+			margin-top: 25px;
+			width: 500px;
+			border: 2px solid rgba(214, 2, 2, 0.8);
+			border-radius: 10px;
+			background: rgba(214, 2, 2, 0.5);
+		
+			line-height: 100px;
+			text-align: center;
+		}
+		
+		.answer {
+			margin-top: 25px;
+			width: 500px;
+			height: 100px;
+			border: 2px solid rgba(47, 245, 89, 0.8);
+			border-radius: 10px;
+			background: rgba(47, 245, 89, 0.5);
+		
+			line-height: 100px;
+			text-align: center;
+		}
+		
+		.input {
+			margin-top: 25px;
+		
+			width: 450px;
+			height: 50px;
+		
+			border: 2px solid rgba(0, 7, 2, 0.8);
+			border-radius: 10px;
+		
+			text-align:center;
+		
+			font-size: 18px;
+		
+			margin: 0, auto;
+		}
+		
+		.inputButton {
+			margin-top: 25px;
+			margin-left: 10px;
+		
+			width: 125px;
+			height: 60px;
+		
+			border: 2px solid rgba(0, 7, 2, 0.8);
+			border-radius: 10px;
+		
+			background: rgba(240, 228, 59, 0.5);
+		
+			font-size: 18px;
+		
+			margin: 0, auto;
+		}
+	</style>
+
+</html>
