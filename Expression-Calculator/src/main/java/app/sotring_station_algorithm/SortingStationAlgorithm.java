@@ -183,7 +183,7 @@ public class SortingStationAlgorithm {
 		while (!stack.isEmpty()) {
 			
 			if (stack.peek() == Operator.OPENING_PARENTHESIS)
-				new ErrorInExpressionException("the opening parenthesis is missing");
+				throw new ErrorInExpressionException("The opening parenthesis is missing");
 			
 			output.add(stack.pop());
 			
